@@ -10,7 +10,7 @@ const boltTranspiler = require('../index');
 var VERSION_STRING = "Firebase Bolt v" + pkg.version;
 
 var opts = {
-  boolean: ['version', 'help'],
+  boolean: ['version', 'help', "flow"],
   string: ['output'],
   alias: {
     'v': 'version',
@@ -64,7 +64,11 @@ function main() {
   }
 
   readFile(process.stdin, function(data) {
-    console.log(boltTranspiler.typescript(data));
+    if (args.flow) {
+      console.log(boltTranspiler.flow(data));
+    } else {
+      console.log(boltTranspiler.typescript(data));
+    }
   });
 }
 
